@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-fanout
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /nginx
+        backend:
+          serviceName: my-nginx-svc
+          servicePort: 80
+      - path: /springboot
+        backend:
+          serviceName: springboot-svc
+          servicePort: 8080
